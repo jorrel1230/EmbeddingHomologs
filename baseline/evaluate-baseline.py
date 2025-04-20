@@ -165,4 +165,4 @@ if __name__ == "__main__":
     
     # Optionally, save scores and labels for future analysis
     np.save('/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_scores.npy', all_scores)
-    np.save('/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baselne_labels.npy', all_labels)
+    np.save('/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_labels.npy', all_labels)
