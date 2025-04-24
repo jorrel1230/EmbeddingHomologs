@@ -3,18 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc, precision_recall_curve
 
-NEIGHBORS = 1
-
-
-suffix = ''
-
-if NEIGHBORS == 1:
-    suffix = '_k1'
-elif NEIGHBORS == 50:
-    suffix = ''
-
-scores = np.load(f'/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_scores{suffix}.npy')
-labels = np.load(f'/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_labels{suffix}.npy')
+scores = np.load(f'/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_scores.npy')
+labels = np.load(f'/scratch/gpfs/jr8867/main/db/indices/baseline/evals/baseline_labels.npy')
 
 print("Loaded scores and labels.")
 
@@ -40,7 +30,7 @@ plt.plot(fpr, tpr, color='blue', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
 plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('Baseline - Raw ESM2 Embeddings - ROC Curve')
+plt.title('Baseline - ROC Curve')
 plt.legend(loc="lower right")
 plt.savefig('roc_curve.png')
 plt.close()
@@ -61,7 +51,7 @@ plt.plot(recall, precision, color='blue', lw=2, label=f'Baseline PR curve (AUC =
 plt.plot([0, 1], [1, 0], color='gray', linestyle='--', label='Random Classifier')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
-plt.title('Baseline - Raw ESM2 Embeddings - Precision-Recall Curve')
+plt.title('Baseline - Precision-Recall Curve')
 plt.legend(loc="upper right")
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
@@ -77,11 +67,11 @@ print(f"Generated PR curve with AUC = {pr_auc:.4f}")
 
 # Generate histogram of scores by label
 plt.figure(figsize=(10, 6))
-h1 = plt.hist(scores[labels == 1], bins=100, color='blue', alpha=0.5, label='Positive Scores')
-h2 = plt.hist(scores[labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores')
+h1 = plt.hist(scores[labels == 1], bins=100, color='blue', alpha=0.5, label='Positive Scores', density=True)
+h2 = plt.hist(scores[labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
 plt.xlabel('Scores')
-plt.ylabel('Frequency')
-plt.title('Distribution of Scores by Label')
+plt.ylabel('Density')
+plt.title('Baseline - Distribution of Scores by Label')
 plt.legend()
 
 # Trace lines through the top of the histogram
