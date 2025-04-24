@@ -11,6 +11,14 @@ npair_train_labels = np.load('/scratch/gpfs/jr8867/main/db/indices/npair-random/
 npair_test_scores = np.load('/scratch/gpfs/jr8867/main/db/indices/npair-random/evals/npair-random_test_scores.npy')
 npair_test_labels = np.load('/scratch/gpfs/jr8867/main/db/indices/npair-random/evals/npair-random_test_labels.npy')
 
+temp = npair_train_scores
+npair_train_scores = npair_test_scores
+npair_test_scores = temp
+
+temp = npair_train_labels
+npair_train_labels = npair_test_labels
+npair_test_labels = temp
+
 print("Loaded scores and labels.")
 
 # ------------------------------------
@@ -49,7 +57,7 @@ plt.plot(train_fpr, train_tpr, color='blue', lw=2, label=f'Train ROC curve (AUC 
 plt.plot(baseline_fpr, baseline_tpr, color='red', lw=2, label=f'Baseline ROC curve (AUC = {baseline_roc_auc:.2f})')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('N-Pair Random (Test) - ROC Curve')
+plt.title('N-Pair Random (Train) - ROC Curve')
 plt.legend(loc="lower right")
 plt.savefig('roc_curve_train.png')
 plt.close()
@@ -60,7 +68,7 @@ plt.plot(test_fpr, test_tpr, color='green', lw=2, label=f'Test ROC curve (AUC = 
 plt.plot(baseline_fpr, baseline_tpr, color='red', lw=2, label=f'Baseline ROC curve (AUC = {baseline_roc_auc:.2f})')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('N-Pair Random (Train) - ROC Curve')
+plt.title('N-Pair Random (Test) - ROC Curve')
 plt.legend(loc="lower right")
 plt.savefig('roc_curve_test.png')
 plt.close()
@@ -83,7 +91,7 @@ plt.figure()
 plt.plot(train_recall, train_precision, color='blue', lw=2, label=f'Train PR curve (AUC = {train_pr_auc:.2f})')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
-plt.title('N-Pair Random (Test) - PR Curve')
+plt.title('N-Pair Random (Train) - PR Curve')
 plt.legend(loc="upper right")
 plt.savefig('pr_curve_train.png')
 plt.close()
@@ -93,7 +101,7 @@ plt.figure()
 plt.plot(test_recall, test_precision, color='green', lw=2, label=f'Test PR curve (AUC = {test_pr_auc:.2f})')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
-plt.title('N-Pair Random (Train) - PR Curve')
+plt.title('N-Pair Random (Test) - PR Curve')
 plt.legend(loc="upper right")
 plt.savefig('pr_curve_test.png')
 plt.close()
@@ -110,7 +118,7 @@ h1 = plt.hist(npair_train_scores[npair_train_labels == 1], bins=100, color='blue
 h2 = plt.hist(npair_train_scores[npair_train_labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
 plt.xlabel('Scores')
 plt.ylabel('Density')
-plt.title('N-Pair Random (Test) - Distribution of Scores by Label')
+plt.title('N-Pair Random (Train) - Distribution of Scores by Label')
 plt.legend()
 
 # Trace lines through the top of the histogram
@@ -127,7 +135,7 @@ h1 = plt.hist(npair_test_scores[npair_test_labels == 1], bins=100, color='blue',
 h2 = plt.hist(npair_test_scores[npair_test_labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
 plt.xlabel('Scores')
 plt.ylabel('Density')
-plt.title('N-Pair Random (Train) - Distribution of Scores by Label')
+plt.title('N-Pair Random (Test) - Distribution of Scores by Label')
 plt.legend()
 
 # Trace lines through the top of the histogram
