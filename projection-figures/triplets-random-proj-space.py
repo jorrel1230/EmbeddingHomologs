@@ -65,7 +65,7 @@ pca = PCA(n_components=2)
 projected_embeddings_2d = pca.fit_transform(filtered_test_embeddings)
 
 # Create a scatter plot of the projected embeddings
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(6, 6))
 plt.scatter(projected_embeddings_2d[:, 0], projected_embeddings_2d[:, 1], alpha=0.7)
 
 # Create a color map for unique superfamily labels
@@ -82,9 +82,9 @@ for i, txt in enumerate(filtered_test_metadata['sf']):
 
 plt.legend(title='sf')  # Add legend with title 'sf'
 
-plt.title(r'Triplet Loss w/ Random Triplets: PCA Projection to $\mathbb{R}^2$')
-plt.xlabel('Principal Component 1')
-plt.ylabel('Principal Component 2')
+plt.title(r'Triplet Loss w/ Random Triplets: PCA Projection to $\mathbb{R}^2$', fontsize=14)
+plt.xlabel('Principal Component 1', fontsize=12)
+plt.ylabel('Principal Component 2', fontsize=12)
 plt.grid()
 plt.savefig('triplets-random-proj-space.png')
 plt.close()
