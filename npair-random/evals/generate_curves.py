@@ -52,9 +52,10 @@ baseline_fpr, baseline_tpr, _ = roc_curve(baseline_labels, -baseline_scores)
 baseline_roc_auc = auc(baseline_fpr, baseline_tpr)
 
 # Plot Train ROC curve
-plt.figure()
+plt.figure(figsize=(6, 6))
 plt.plot(train_fpr, train_tpr, color='blue', lw=2, label=f'Train ROC curve (AUC = {train_roc_auc:.2f})')
 plt.plot(baseline_fpr, baseline_tpr, color='red', lw=2, label=f'Baseline ROC curve (AUC = {baseline_roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--', label='Random Classifier')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('N-Pair Random (Train) - ROC Curve')
@@ -63,9 +64,10 @@ plt.savefig('roc_curve_train.png')
 plt.close()
 
 # Plot Test ROC curve
-plt.figure()
+plt.figure(figsize=(6, 6))
 plt.plot(test_fpr, test_tpr, color='green', lw=2, label=f'Test ROC curve (AUC = {test_roc_auc:.2f})')
 plt.plot(baseline_fpr, baseline_tpr, color='red', lw=2, label=f'Baseline ROC curve (AUC = {baseline_roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--', label='Random Classifier')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('N-Pair Random (Test) - ROC Curve')
@@ -87,7 +89,7 @@ test_precision, test_recall, _ = precision_recall_curve(npair_test_labels, -npai
 test_pr_auc = auc(test_recall, test_precision)
 
 # Plot PR curve
-plt.figure()
+plt.figure(figsize=(6, 6))
 plt.plot(train_recall, train_precision, color='blue', lw=2, label=f'Train PR curve (AUC = {train_pr_auc:.2f})')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
@@ -97,7 +99,7 @@ plt.savefig('pr_curve_train.png')
 plt.close()
 
 # Plot Test PR curve
-plt.figure()
+plt.figure(figsize=(6, 6))
 plt.plot(test_recall, test_precision, color='green', lw=2, label=f'Test PR curve (AUC = {test_pr_auc:.2f})')
 plt.xlabel('Recall')
 plt.ylabel('Precision')
@@ -113,7 +115,7 @@ print("Generated PR curves.")
 # ------------------------------------------------------------------------------------------------  
 
 # Generate histogram of scores by label
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 6))
 h1 = plt.hist(npair_train_scores[npair_train_labels == 1], bins=100, color='blue', alpha=0.5, label='Positive Scores', density=True)
 h2 = plt.hist(npair_train_scores[npair_train_labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
 plt.xlabel('Scores')
@@ -130,7 +132,7 @@ plt.savefig('score_histogram_train.png')
 plt.close()
 
 # Generate histogram of scores by label
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 6))
 h1 = plt.hist(npair_test_scores[npair_test_labels == 1], bins=100, color='blue', alpha=0.5, label='Positive Scores', density=True)
 h2 = plt.hist(npair_test_scores[npair_test_labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
 plt.xlabel('Scores')

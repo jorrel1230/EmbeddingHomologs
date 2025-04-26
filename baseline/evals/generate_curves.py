@@ -25,13 +25,13 @@ fpr, tpr, _ = roc_curve(labels, -scores)
 roc_auc = auc(fpr, tpr)
 
 # Plot ROC curve
-plt.figure()
+plt.figure(figsize=(6, 6))
 plt.plot(fpr, tpr, color='blue', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
-plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Baseline - ROC Curve')
-plt.legend(loc="lower right")
+plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--', label='Random Classifier')
+plt.xlabel('False Positive Rate', fontsize=12)
+plt.ylabel('True Positive Rate', fontsize=12)
+plt.title('Baseline - ROC Curve', fontsize=14)
+plt.legend(loc="lower right", fontsize=12)
 plt.savefig('roc_curve.png')
 plt.close()
 
@@ -44,15 +44,16 @@ print("Generated ROC curve.")
 # Compute PR curve and PR area
 precision, recall, _ = precision_recall_curve(labels, -scores)
 pr_auc = auc(recall, precision)
+pr_base = 1/2816
 
 # Plot PR curve
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 6))
 plt.plot(recall, precision, color='blue', lw=2, label=f'Baseline PR curve (AUC = {pr_auc:.2f})')
-plt.plot([0, 1], [1, 0], color='gray', linestyle='--', label='Random Classifier')
-plt.xlabel('Recall')
-plt.ylabel('Precision')
-plt.title('Baseline - Precision-Recall Curve')
-plt.legend(loc="upper right")
+plt.plot([0, 1], [pr_base, pr_base], color='gray', linestyle='--', label='Random Classifier')
+plt.xlabel('Recall', fontsize=12)
+plt.ylabel('Precision', fontsize=12)
+plt.title('Baseline - Precision-Recall Curve', fontsize=14)
+plt.legend(loc="upper right", fontsize=12)
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.grid(True)
@@ -66,13 +67,13 @@ print(f"Generated PR curve with AUC = {pr_auc:.4f}")
 # ------------------------------------------------------------------------------------------------  
 
 # Generate histogram of scores by label
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(6, 6))
 h1 = plt.hist(scores[labels == 1], bins=100, color='blue', alpha=0.5, label='Positive Scores', density=True)
 h2 = plt.hist(scores[labels == 0], bins=100, color='orange', alpha=0.5, label='Negative Scores', density=True)
-plt.xlabel('Scores')
-plt.ylabel('Density')
-plt.title('Baseline - Distribution of Scores by Label')
-plt.legend()
+plt.xlabel('Scores', fontsize=12)
+plt.ylabel('Density', fontsize=12)
+plt.title('Baseline - Distribution of Scores by Label', fontsize=14)
+plt.legend(fontsize=12)
 
 # Trace lines through the top of the histogram
 max_height = max(max(h1[0]), max(h2[0]))
